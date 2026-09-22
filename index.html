@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ты — аким города</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="game">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-star">✦</div>
+      <div>
+        <h1>ТЫ — АКИМ</h1>
+        <p>симулятор города</p>
+      </div>
+    </div>
+
+    <div class="turn-box">
+      <span>ХОД</span>
+      <strong id="turn">1</strong>
+      <small>/ 20</small>
+    </div>
+
+    <div class="budget">
+      <span>БЮДЖЕТ</span>
+      <strong id="money">1 200 млн ₸</strong>
+    </div>
+  </header>
+
+
+  <main class="layout">
+
+    <!-- ЛЕВАЯ ЧАСТЬ -->
+    <section class="city-side">
+
+      <div class="city-title">
+        <div>
+          <span class="mini-label">ВАШ ГОРОД</span>
+          <h2>АКТАУ-ЛАЙТ</h2>
+        </div>
+
+        <div class="weather">
+          ☀️
+          <span>+24°</span>
+        </div>
+      </div>
+
+      <div class="city-map" id="cityMap">
+
+        <svg viewBox="0 0 800 600" class="map-svg">
+
+          <!-- фон -->
+          <rect x="0" y="0" width="800" height="600" rx="35"
+                fill="#fffdf7"/>
+
+          <!-- река -->
+          <path class="river"
+            d="M570 -20
+               C510 80 650 130 570 230
+               C500 320 610 370 540 470
+               C490 540 560 610 520 640
+               L800 640 L800 -20 Z"/>
+
+          <!-- дороги -->
+          <path class="road"
+            d="M20 155 C170 125 270 180 390 150 S620 115 780 145"/>
+          <path class="road"
+            d="M35 365 C170 330 280 390 405 350 S630 330 780 370"/>
+          <path class="road"
+            d="M315 20 C300 140 345 210 320 300 S300 470 335 590"/>
+          <path class="road"
+            d="M160 20 C180 130 140 210 170 300 S185 470 145 590"/>
+
+          <!-- центральная площадь -->
+          <ellipse cx="365" cy="265" rx="90" ry="65"
+                   class="square"/>
+          <circle cx="365" cy="265" r="27" class="fountain"/>
+          <path d="M350 265 Q365 245 380 265 Q365 285 350 265"
+                class="fountain-line"/>
+
+          <!-- дома -->
+          <g class="buildings">
+            <rect x="55" y="60" width="80" height="60" rx="8"/>
+            <rect x="190" y="65" width="75" height="55" rx="8"/>
+            <rect x="400" y="55" width="95" height="65" rx="8"/>
+            <rect x="650" y="65" width="80" height="60" rx="8"/>
+
+            <rect x="55" y="205" width="90" height="60" rx="8"/>
+            <rect x="650" y="210" width="90" height="65" rx="8"/>
+
+            <rect x="55" y="440" width="90" height="65" rx="8"/>
+            <rect x="190" y="455" width="90" height="60" rx="8"/>
+            <rect x="390" y="455" width="100" height="65" rx="8"/>
+            <rect x="650" y="450" width="90" height="65" rx="8"/>
+          </g>
+
+          <!-- окна -->
+          <g class="windows">
+            <circle cx="75" cy="80" r="4"/>
+            <circle cx="95" cy="80" r="4"/>
+            <circle cx="115" cy="80" r="4"/>
+            <circle cx="75" cy="100" r="4"/>
+            <circle cx="95" cy="100" r="4"/>
+
+            <circle cx="210" cy="85" r="4"/>
+            <circle cx="230" cy="85" r="4"/>
+            <circle cx="250" cy="85" r="4"/>
+            <circle cx="210" cy="105" r="4"/>
+            <circle cx="230" cy="105" r="4"/>
+
+            <circle cx="425" cy="78" r="4"/>
+            <circle cx="450" cy="78" r="4"/>
+            <circle cx="475" cy="78" r="4"/>
+            <circle cx="425" cy="100" r="4"/>
+            <circle cx="450" cy="100" r="4"/>
+          </g>
+
+          <!-- парк -->
+          <g class="park">
+            <path d="M70 290 Q120 255 175 290 Q205 330 175 360
+                     Q110 385 70 350 Q50 325 70 290Z"/>
+            <circle cx="95" cy="310" r="15"/>
+            <circle cx="130" cy="295" r="17"/>
+            <circle cx="160" cy="315" r="15"/>
+            <path d="M125 345 L125 315"/>
+          </g>
+
+          <!-- деревья -->
+          <g class="trees">
+            <g transform="translate(225 300)">
+              <circle cx="0" cy="0" r="18"/>
+              <path d="M0 17 L0 38"/>
+            </g>
+            <g transform="translate(265 330)">
+              <circle cx="0" cy="0" r="16"/>
+              <path d="M0 15 L0 35"/>
+            </g>
+            <g transform="translate(440 310)">
+              <circle cx="0" cy="0" r="18"/>
+              <path d="M0 17 L0 38"/>
+            </g>
+            <g transform="translate(470 345)">
+              <circle cx="0" cy="0" r="15"/>
+              <path d="M0 14 L0 34"/>
+            </g>
+          </g>
+
+          <!-- машины -->
+          <g class="cars">
+            <rect x="250" y="145" width="48" height="22" rx="9"/>
+            <circle cx="262" cy="169" r="6"/>
+            <circle cx="286" cy="169" r="6"/>
+
+            <rect x="475" y="350" width="48" height="22" rx="9"/>
+            <circle cx="487" cy="374" r="6"/>
+            <circle cx="511" cy="374" r="6"/>
+          </g>
+
+          <!-- места проектов -->
+          <g id="projectObjects"></g>
+
+          <!-- декоративные doodles -->
+          <g class="doodles">
+            <path d="M25 530 q15 -15 30 0 q-15 15 -30 0"/>
+            <path d="M700 170 q20 -20 40 0"/>
+            <path d="M710 540 q15 -15 30 0"/>
+            <path d="M200 540 l10 -20 l10 20"/>
+          </g>
+
+        </svg>
+
+        <div class="map-note">город меняется вместе с тобой ✎</div>
+      </div>
+
+      <div class="city-stats">
+        <div class="stat">
+          <div class="stat-head">
+            <span>😊 Счастье</span>
+            <b id="happinessValue">60</b>
+          </div>
+          <div class="bar"><i id="happinessBar"></i></div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-head">
+            <span>🌱 Экология</span>
+            <b id="ecologyValue">55</b>
+          </div>
+          <div class="bar green"><i id="ecologyBar"></i></div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-head">
+            <span>🚗 Транспорт</span>
+            <b id="mobilityValue">50</b>
+          </div>
+          <div class="bar blue"><i id="mobilityBar"></i></div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-head">
+            <span>🎓 Образование</span>
+            <b id="educationValue">45</b>
+          </div>
+          <div class="bar purple"><i id="educationBar"></i></div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-head">
+            <span>🏥 Здоровье</span>
+            <b id="healthValue">50</b>
+          </div>
+          <div class="bar red"><i id="healthBar"></i></div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-head">
+            <span>💰 Экономика</span>
+            <b id="economyValue">55</b>
+          </div>
+          <div class="bar yellow"><i id="economyBar"></i></div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ПРАВАЯ ЧАСТЬ -->
+    <aside class="control-panel">
+
+      <div class="panel-heading">
+        <div>
+          <span class="mini-label">РЕШЕНИЕ АКИМА</span>
+          <h2>Что построим?</h2>
+        </div>
+
+        <div class="income-badge">
+          <span>ДОХОД / ХОД</span>
+          <b id="incomePerTurn">+0 млн</b>
+        </div>
+      </div>
+
+      <div class="projects" id="projects"></div>
+
+      <div class="news">
+        <div class="news-title">
+          <span>📰 НОВОСТИ ГОРОДА</span>
+          <small id="newsTurn">Ход 1</small>
+        </div>
+
+        <div id="newsList"></div>
+      </div>
+
+    </aside>
+
+  </main>
+
+</div>
+
+
+<!-- СОБЫТИЕ -->
+<div class="modal hidden" id="eventModal">
+  <div class="event-card">
+
+    <div class="event-top">
+      <span id="eventTag">СРОЧНО</span>
+      <span id="eventIcon">⚠️</span>
+    </div>
+
+    <h2 id="eventTitle">Проблема города</h2>
+    <p id="eventDescription"></p>
+
+    <div class="event-question">
+      Что будете делать, аким?
+    </div>
+
+    <div class="event-choices" id="eventChoices"></div>
+
+  </div>
+</div>
+
+
+<!-- СТАРТ -->
+<div class="start-screen" id="startScreen">
+  <div class="start-doodles">
+    <span>✦</span>
+    <span>☼</span>
+    <span>✎</span>
+    <span>⌁</span>
+  </div>
+
+  <div class="start-card">
+    <div class="start-logo">🏙️</div>
+    <div class="mini-label">ГОРОДСКОЙ СИМУЛЯТОР</div>
+    <h1>ТЫ — АКИМ</h1>
+    <p>
+      У тебя есть бюджет, город и 20 ходов.<br>
+      Построй город, в котором люди захотят жить.
+    </p>
+
+    <div class="rules">
+      <div>💸 трать бюджет</div>
+      <div>🏗️ развивай город</div>
+      <div>⚡ решай проблемы</div>
+      <div>📈 следи за показателями</div>
+    </div>
+
+    <button id="startBtn">НАЧАТЬ ИГРУ →</button>
+  </div>
+</div>
+
+
+<!-- ФИНИШ -->
+<div class="modal hidden" id="finishModal">
+  <div class="finish-card">
+    <div class="finish-icon">🏙️</div>
+    <span class="mini-label">20 ХОДОВ ЗАВЕРШЕНО</span>
+    <h2>Ваш город готов!</h2>
+
+    <div class="final-score">
+      <span>Индекс города</span>
+      <strong id="finalScore">0</strong>
+      <small>/ 100</small>
+    </div>
+
+    <div class="final-grid">
+      <div>
+        <b id="finalHappiness">0</b>
+        <span>Счастье</span>
+      </div>
+      <div>
+        <b id="finalEcology">0</b>
+        <span>Экология</span>
+      </div>
+      <div>
+        <b id="finalEconomy">0</b>
+        <span>Экономика</span>
+      </div>
+    </div>
+
+    <button onclick="location.reload()">ИГРАТЬ ЕЩЁ →</button>
+  </div>
+</div>
+
+
+<div class="toast hidden" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
