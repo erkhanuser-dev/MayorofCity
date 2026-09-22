@@ -1,0 +1,901 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --paper: #fffdf7;
+  --cream: #f7f2e8;
+  --ink: #202020;
+  --muted: #77736c;
+  --yellow: #ffd85a;
+  --green: #b8e986;
+  --blue: #a9ddff;
+  --pink: #ffc1d8;
+  --purple: #d5c1ff;
+  --red: #ffb5a7;
+  --line: #262626;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 10% 10%, #fff 0 2px, transparent 3px),
+    var(--cream);
+  background-size: 25px 25px;
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.game {
+  width: min(1450px, 96%);
+  margin: 18px auto;
+}
+
+
+/* HEADER */
+
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-star {
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--line);
+  background: var(--yellow);
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  font-size: 27px;
+  transform: rotate(-5deg);
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 25px;
+  letter-spacing: -1px;
+}
+
+.brand p {
+  margin: 0;
+  color: var(--muted);
+  font-family: "Comic Neue", cursive;
+  font-size: 16px;
+}
+
+.turn-box,
+.budget {
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 15px;
+  padding: 8px 15px;
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.turn-box span,
+.budget span {
+  font-size: 10px;
+  display: block;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.turn-box strong {
+  font-size: 22px;
+}
+
+.turn-box small {
+  color: var(--muted);
+}
+
+.budget strong {
+  font-size: 18px;
+}
+
+
+/* LAYOUT */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(390px, .75fr);
+  gap: 20px;
+}
+
+
+/* CITY */
+
+.city-side,
+.control-panel {
+  background: rgba(255,255,255,.65);
+  border: 2px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 5px 5px 0 var(--line);
+}
+
+.city-side {
+  padding: 20px;
+}
+
+.city-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 5px 14px;
+}
+
+.mini-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+.city-title h2 {
+  margin: 2px 0 0;
+  font-family: "Comic Neue", cursive;
+  font-size: 29px;
+}
+
+.weather {
+  background: var(--yellow);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  padding: 7px 11px;
+  transform: rotate(2deg);
+}
+
+.weather span {
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+
+/* MAP */
+
+.city-map {
+  position: relative;
+  border: 2px solid var(--line);
+  border-radius: 25px;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.map-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.river {
+  fill: #bde8ff;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.road {
+  fill: none;
+  stroke: #ded9d0;
+  stroke-width: 26;
+  stroke-linecap: round;
+}
+
+.road::after {
+  stroke: var(--line);
+}
+
+.square {
+  fill: #fff3b5;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.fountain {
+  fill: #a9ddff;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.fountain-line {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.buildings rect {
+  fill: #ffd8c7;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.windows circle {
+  fill: var(--line);
+}
+
+.park path {
+  fill: #c9efaa;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.park circle {
+  fill: #9ed477;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.park path:last-child {
+  fill: none;
+}
+
+.trees circle {
+  fill: #b8e986;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.trees path {
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.cars rect {
+  fill: var(--pink);
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.cars circle {
+  fill: var(--line);
+}
+
+.doodles {
+  fill: none;
+  stroke: #555;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.map-note {
+  position: absolute;
+  bottom: 13px;
+  right: 15px;
+  padding: 6px 10px;
+  background: white;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  font-family: "Comic Neue", cursive;
+  font-size: 13px;
+  transform: rotate(-2deg);
+}
+
+
+/* PROJECT OBJECTS */
+
+.map-project {
+  transform-origin: center;
+}
+
+.map-project rect,
+.map-project circle,
+.map-project path {
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.project-park rect {
+  fill: #b8e986;
+}
+
+.project-school rect {
+  fill: #ffd85a;
+}
+
+.project-hospital rect {
+  fill: #ffb5a7;
+}
+
+.project-metro rect {
+  fill: #a9ddff;
+}
+
+.project-solar rect {
+  fill: #ffd85a;
+}
+
+.project-market rect {
+  fill: #ffc1d8;
+}
+
+.project-water rect {
+  fill: #a9ddff;
+}
+
+.project-university rect {
+  fill: #d5c1ff;
+}
+
+.project-stadium rect {
+  fill: #b8e986;
+}
+
+.project-tourism rect {
+  fill: #ffc1d8;
+}
+
+
+/* STATS */
+
+.city-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.stat {
+  background: white;
+  border: 2px solid var(--line);
+  border-radius: 13px;
+  padding: 9px;
+}
+
+.stat-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.stat-head b {
+  font-size: 12px;
+}
+
+.bar {
+  height: 7px;
+  background: #e8e4dc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  width: 60%;
+  height: 100%;
+  background: var(--yellow);
+  border-radius: inherit;
+  transition: width .4s ease;
+}
+
+.bar.green i { background: var(--green); }
+.bar.blue i { background: var(--blue); }
+.bar.purple i { background: var(--purple); }
+.bar.red i { background: var(--red); }
+.bar.yellow i { background: var(--yellow); }
+
+
+/* CONTROL PANEL */
+
+.control-panel {
+  padding: 18px;
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.panel-heading h2 {
+  margin: 2px 0 0;
+  font-family: "Comic Neue", cursive;
+  font-size: 28px;
+}
+
+.income-badge {
+  background: var(--green);
+  border: 2px solid var(--line);
+  border-radius: 13px;
+  padding: 7px 10px;
+  text-align: right;
+  transform: rotate(1deg);
+}
+
+.income-badge span {
+  display: block;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.income-badge b {
+  font-size: 15px;
+}
+
+
+/* PROJECTS */
+
+.projects {
+  display: grid;
+  gap: 9px;
+  max-height: 525px;
+  overflow-y: auto;
+  padding: 3px;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  border: 2px solid var(--line);
+  border-radius: 15px;
+  padding: 9px;
+  background: white;
+  transition: .15s;
+}
+
+.project:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.project.locked {
+  opacity: .48;
+  filter: grayscale(.7);
+}
+
+.project-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: var(--cream);
+  font-size: 20px;
+}
+
+.project-name {
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.project-desc {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.project-info {
+  margin-top: 4px;
+  display: flex;
+  gap: 7px;
+  font-size: 10px;
+}
+
+.project-cost {
+  color: #b43e32;
+  font-weight: 800;
+}
+
+.project-profit {
+  color: #368341;
+  font-weight: 800;
+}
+
+.project button {
+  border: 2px solid var(--line);
+  background: var(--yellow);
+  border-radius: 11px;
+  padding: 8px 10px;
+  font-weight: 800;
+  font-size: 11px;
+  min-width: 78px;
+}
+
+.project button:hover {
+  transform: rotate(-2deg);
+}
+
+.project button:disabled {
+  cursor: not-allowed;
+  background: #ddd;
+}
+
+
+/* NEWS */
+
+.news {
+  margin-top: 14px;
+  border-top: 2px dashed #bbb;
+  padding-top: 12px;
+}
+
+.news-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 7px;
+}
+
+.news-title small {
+  color: var(--muted);
+}
+
+.news-item {
+  font-family: "Comic Neue", cursive;
+  background: #fff;
+  border: 1.5px solid #bbb;
+  border-radius: 9px;
+  padding: 6px 8px;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+
+/* MODALS */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(31,31,31,.45);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.event-card,
+.finish-card {
+  width: min(570px, 100%);
+  background: var(--paper);
+  border: 3px solid var(--line);
+  border-radius: 27px;
+  padding: 25px;
+  box-shadow: 8px 8px 0 var(--line);
+  animation: pop .25s ease;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(.9) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.event-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-top span:first-child {
+  background: var(--pink);
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  padding: 5px 9px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.event-top span:last-child {
+  font-size: 32px;
+}
+
+.event-card h2 {
+  font-family: "Comic Neue", cursive;
+  font-size: 32px;
+  margin: 13px 0 7px;
+}
+
+.event-card > p {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.event-question {
+  font-weight: 800;
+  margin-bottom: 9px;
+}
+
+.event-choices {
+  display: grid;
+  gap: 9px;
+}
+
+.event-choice {
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  text-align: left;
+  background: white;
+  transition: .15s;
+}
+
+.event-choice:hover {
+  transform: translateX(4px);
+  background: var(--yellow);
+}
+
+.choice-title {
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.choice-effect {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  margin-top: 4px;
+}
+
+
+/* START */
+
+.start-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--cream);
+  display: grid;
+  place-items: center;
+  z-index: 200;
+  overflow: hidden;
+}
+
+.start-card {
+  width: min(560px, 90%);
+  background: var(--paper);
+  border: 3px solid var(--line);
+  border-radius: 32px;
+  box-shadow: 9px 9px 0 var(--line);
+  padding: 40px;
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.start-logo {
+  font-size: 65px;
+  margin-bottom: 4px;
+}
+
+.start-card h1 {
+  font-family: "Comic Neue", cursive;
+  font-size: 57px;
+  margin: 0;
+  letter-spacing: -2px;
+}
+
+.start-card p {
+  color: #65615a;
+  line-height: 1.6;
+}
+
+.rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 22px 0;
+}
+
+.rules div {
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 9px;
+  background: white;
+  font-size: 12px;
+}
+
+.start-card button,
+.finish-card button {
+  border: 2px solid var(--line);
+  background: var(--yellow);
+  border-radius: 14px;
+  padding: 13px 25px;
+  font-weight: 900;
+  font-size: 14px;
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.start-card button:hover,
+.finish-card button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--line);
+}
+
+.start-doodles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.start-doodles span {
+  position: absolute;
+  font-family: "Comic Neue", cursive;
+  font-size: 45px;
+}
+
+.start-doodles span:nth-child(1) {
+  top: 15%;
+  left: 15%;
+}
+
+.start-doodles span:nth-child(2) {
+  top: 20%;
+  right: 17%;
+}
+
+.start-doodles span:nth-child(3) {
+  bottom: 20%;
+  left: 18%;
+}
+
+.start-doodles span:nth-child(4) {
+  bottom: 16%;
+  right: 18%;
+}
+
+
+/* FINISH */
+
+.finish-card {
+  text-align: center;
+}
+
+.finish-icon {
+  font-size: 55px;
+}
+
+.finish-card h2 {
+  font-family: "Comic Neue", cursive;
+  font-size: 32px;
+  margin: 7px 0 18px;
+}
+
+.final-score {
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  background: var(--yellow);
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+.final-score span {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.final-score strong {
+  font-size: 55px;
+  font-family: "Comic Neue", cursive;
+}
+
+.final-score small {
+  font-size: 13px;
+}
+
+.final-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.final-grid div {
+  background: white;
+  border: 2px solid var(--line);
+  border-radius: 13px;
+  padding: 9px;
+}
+
+.final-grid b,
+.final-grid span {
+  display: block;
+}
+
+.final-grid b {
+  font-size: 22px;
+}
+
+.final-grid span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+
+/* TOAST */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 25px;
+  transform: translateX(-50%);
+  z-index: 150;
+  background: var(--ink);
+  color: white;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 12px 18px;
+  font-size: 13px;
+  box-shadow: 4px 4px 0 white;
+  animation: toastIn .25s ease;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 15px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 1050px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .projects {
+    max-height: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .topbar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .budget {
+    grid-column: 1 / -1;
+  }
+
+  .city-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .start-card {
+    padding: 25px;
+  }
+
+  .start-card h1 {
+    font-size: 43px;
+  }
+
+  .rules {
+    grid-template-columns: 1fr;
+  }
+}
